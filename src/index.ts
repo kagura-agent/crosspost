@@ -1,10 +1,13 @@
 import { postToDiscord } from "./discord.js";
 
-// TODO: Session injection is not yet supported.
-// openclaw sessions CLI has no inject/append command.
-// Once openclaw adds a way to inject messages into a session
-// without triggering an agent run, add it here.
-
+/**
+ * Post a message to Discord via openclaw CLI.
+ *
+ * Session context injection is handled separately by the agent runtime
+ * using the sessions_send tool (not available as CLI).
+ * When calling crosspost from within an agent session, pair it with
+ * a sessions_send call to inject context into the target session.
+ */
 export function crosspost(channelId: string, message: string): void {
   postToDiscord(channelId, message);
 }

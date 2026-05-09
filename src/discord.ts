@@ -1,8 +1,7 @@
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 
 export function postToDiscord(channelId: string, content: string): void {
   const args = [
-    "openclaw",
     "message",
     "send",
     "--channel",
@@ -16,7 +15,7 @@ export function postToDiscord(channelId: string, content: string): void {
   ];
 
   try {
-    execSync(args.join(" "), {
+    execFileSync("openclaw", args, {
       encoding: "utf-8",
       stdio: ["pipe", "pipe", "pipe"],
     });
