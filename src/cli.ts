@@ -6,12 +6,12 @@ const program = new Command();
 
 program
   .name("crosspost")
-  .description("Post a message to Discord and append to OpenClaw session transcript")
+  .description("Post a message to Discord via openclaw CLI")
   .requiredOption("-c, --channel <id>", "Discord channel ID")
   .requiredOption("-m, --message <text>", "Message content")
-  .action(async (opts: { channel: string; message: string }) => {
+  .action((opts: { channel: string; message: string }) => {
     try {
-      await crosspost(opts.channel, opts.message);
+      crosspost(opts.channel, opts.message);
     } catch (err) {
       console.error(
         `Error: ${err instanceof Error ? err.message : String(err)}`,
