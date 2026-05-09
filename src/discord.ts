@@ -1,24 +1,30 @@
-export async function postToDiscord(
-  channelId: string,
-  content: string,
-  token: string,
-): Promise<void> {
-  const url = `https://discord.com/api/v10/channels/${channelId}/messages`;
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `Bot ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ content }),
-  });
+import { execFileSync } from "node:child_process";
 
-  if (!res.ok) {
-    const body = await res.text();
-    throw new Error(
-      `Discord API error ${res.status}: ${body}`,
-    );
+export function postToDiscord(channelId: string, content: string): void {
+  const args = [
+    "message",
+    "send",
+    "--channel",
+    "discord",
+    "--account",
+    "kagura",
+    "--target",
+    `channel:${channelId}`,
+    "--message",
+    content,
+  ];
+
+  try {
+    execFileSync("openclaw", args, {
+      encoding: "utf-8",
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+    console.log("Message sent to Discord via openclaw CLI.");
+  } catch (err) {
+    const stderr =
+      err instanceof Error && "stderr" in err
+        ? (err as any).stderr
+        : String(err);
+    throw new Error(`openclaw message send failed: ${stderr}`);
   }
-
-  console.log("Message sent to Discord.");
 }
