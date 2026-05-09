@@ -1,0 +1,20 @@
+{
+  "name": "@kagura-agent/crosspost",
+  "version": "1.0.0",
+  "description": "CLI tool to crosspost messages to Discord and OpenClaw session transcripts",
+  "type": "module",
+  "bin": {
+    "crosspost": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}
